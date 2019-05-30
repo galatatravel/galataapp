@@ -1,8 +1,5 @@
 FROM digitalgenius/alpine-jdk:latest
 COPY files/config.jar /opt/lib/
-RUN mkdir /var/lib/central-properties
-COPY files/central-properties /var/lib/central-properties
 ENTRYPOINT ["/usr/bin/java"]
 CMD ["-jar", "/opt/lib/config.jar"]
-VOLUME /var/lib/central-properties
 EXPOSE 8081
