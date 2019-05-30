@@ -5,7 +5,7 @@ services:
         hostname: config-server
         build:
             context: .
-            dockerfile: Dockerfile-config
+            dockerfile: dockerfile-config
         image: config-server:latest
         expose:
             - 8081
@@ -21,7 +21,7 @@ services:
         hostname: eureka-server
         build:
             context: .
-            dockerfile: Dockerfile-eureka
+            dockerfile: dockerfile-eureka
         image: eureka-server:latest
         expose:
             - 8761
@@ -38,7 +38,7 @@ services:
         hostname: gateway-server
         build:
             context: .
-            dockerfile: Dockerfile-gateway
+            dockerfile: dockerfile-gateway
         image: gateway-server:latest
         expose:
             - 8080
