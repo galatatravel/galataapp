@@ -13,8 +13,6 @@ services:
             - 8081:8081
         networks:
             - micro-network
-        volumes:
-            - central-properties:/var/lib/central-properties
         environment:
             EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
             SPRING_CLOUD_CONFIG_SERVER_GIT_URI: https://github.com/snaket2003/central-properties
@@ -56,6 +54,3 @@ services:
 networks:
     micro-network:
         driver: bridge
-volumes:
-    central-properties:
-        external: true
