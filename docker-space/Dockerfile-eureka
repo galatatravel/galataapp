@@ -1,0 +1,7 @@
+FROM digitalgenius/alpine-jdk:latest
+RUN apk --no-cache add netcat-openbsd
+COPY files/eureka.jar /opt/lib/
+COPY files/run-eureka.sh /opt/lib/
+RUN chmod +x /opt/lib/run-eureka.sh
+CMD ["./opt/lib/run-eureka.sh"]
+EXPOSE 8761

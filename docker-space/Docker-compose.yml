@@ -1,0 +1,61 @@
+version: '3.7'
+services:
+    config-server:
+        container_name: config-server
+        hostname: config-server
+        build:
+            context: .
+            dockerfile: Dockerfile-config
+        image: config-server:latest
+        expose:
+            - 8081
+        ports:
+            - 8081:8081
+        networks:
+            - micro-network
+        volumes:
+            - central-properties:/var/lib/central-properties
+        environment:
+            EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
+            SPRING_CLOUD_CONFIG_SERVER_GIT_URI: https://github.com/snaket2003/central-properties
+    eureka-server:
+        container_name: eureka-server
+        hostname: eureka-server
+        build:
+            context: .
+            dockerfile: Dockerfile-eureka
+        image: eureka-server:latest
+        expose:
+            - 8761
+        ports:
+            - 8761:8761
+        networks:
+            - micro-network
+        environment:
+            EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
+        links:
+            - config-server
+    gateway-server:
+        container_name: gateway-server
+        hostname: gateway-server
+        build:
+            context: .
+            dockerfile: Dockerfile-gateway
+        image: gateway-server:latest
+        expose:
+            - 8080
+        ports:
+            - 8080:8080
+        networks:
+            - micro-network
+        environment:
+            EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
+        links:
+            - eureka-server
+            - config-server
+networks:
+    micro-network:
+        driver: bridge
+volumes:
+    central-properties:
+        external: true

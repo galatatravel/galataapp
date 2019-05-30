@@ -1,0 +1,7 @@
+FROM digitalgenius/alpine-jdk:latest
+RUN apk --no-cache add netcat-openbsd
+COPY files/gateway.jar /opt/lib/
+COPY files/run-gateway.sh /opt/lib/
+RUN chmod +x /opt/lib/run-gateway.sh
+CMD ["./opt/lib/run-gateway.sh"]
+EXPOSE 8080
